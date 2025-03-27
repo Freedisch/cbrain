@@ -4,5 +4,5 @@
 # Mime::Type.register "text/richtext", :rtf
 
 # CBRAIN added info
-Mime::Type.register_alias "text", :txt
+Mime::Type.register_alias "text/plain", :txt
 

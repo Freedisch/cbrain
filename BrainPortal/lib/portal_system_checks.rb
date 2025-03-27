@@ -56,12 +56,27 @@ class PortalSystemChecks < CbrainChecker #:nodoc:
 
   # Checks for pending migrations, stops the boot if it detects a problem. Must be run first
   def self.a010_check_if_pending_database_migrations #:nodoc:
-
     #-----------------------------------------------------------------------------
     puts "C> Checking for pending migrations..."
     #-----------------------------------------------------------------------------
 
-    if defined?(ActiveRecord::Migrator)
+    if defined?(ActiveRecord::Base.connection.migration_context)
+      # Rails 5.2+ way
+      migration_context = ActiveRecord::Base.connection.migration_context
+      pending = migration_context.needs_migration?
+      
+      if pending
+        pending_migrations = migration_context.migrations.select { |m| m.version > migration_context.current_version }
+        puts "C> \t- You have #{pending_migrations.size} pending migration(s):"
+        pending_migrations.each do |migr|
+          puts "C> \t    #{migr.version} #{migr.name}"
+        end
+        puts "C> \t- Please run \"rake db:migrate RAILS_ENV=#{Rails.env}\" to update"
+        puts "C> \t  your database then try again."
+        Kernel.exit(10)
+      end
+    elsif defined?(ActiveRecord::Migrator)
+      # Rails < 5.2 way
       migrator = ActiveRecord::Migrator.open(ActiveRecord::Migrator.migrations_paths)
       pending  = migrator.pending_migrations
       if pending.present?

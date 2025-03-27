@@ -26,7 +26,7 @@ source 'https://rubygems.org'
 # In the :default group
 #----------------------
 
-gem 'rails', '~> 5.0.6'
+gem 'rails', '5.2.8'
 
 # Network components mostly
 gem "net-ssh",       :require => 'net/ssh'
@@ -39,7 +39,7 @@ gem "bcrypt_pbkdf"
 
 # Other utilities
 gem "sys-proctable", '~> 1.2.0'
-gem "mysql2",        '< 0.5'
+gem "mysql2",
 gem "log4r"
 gem "puma"
 gem "pbkdf2-ruby"

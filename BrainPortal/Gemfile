@@ -26,12 +26,12 @@ source 'https://rubygems.org'
 # In the :default group
 #----------------------
 
-gem 'rails', '~> 5.0.6'
+gem 'rails', '5.2.8'
 
 # Network components mostly
 gem "net-ssh",       :require => 'net/ssh'
 gem "net-sftp",      :require => 'net/sftp'
-gem "x25519"
+# gem "x25519"
 gem "ed25519"
 gem "bcrypt_pbkdf"
 # You can comment-out the following two gems if you don't mind not having 'userkey' data providers.
@@ -41,7 +41,7 @@ gem "rbnacl-libsodium"
 
 # Other utilities
 gem "sys-proctable", '~> 1.2.0'
-gem "mysql2",        '< 0.5'
+gem "mysql2",        '0.5.3'
 gem "log4r"
 gem "puma"
 gem "pbkdf2-ruby"
@@ -94,8 +94,8 @@ end
 group :test do
   gem "rspec"
   gem "rspec-rails"
-  gem "factory_bot",       '6.4.2', :require => false
-  gem "factory_bot_rails", '6.4.2', :require => false
+  gem "factory_bot",       '< 6.4.2', :require => false
+  gem "factory_bot_rails", '< 6.4.2', :require => false
   gem "rails-controller-testing"
   gem "rspec-mocks"
   gem "rspec-activemodel-mocks"
@@ -104,3 +104,5 @@ group :test do
   gem 'cbrain_client', '>= 6.4.0', :git => 'https://github.com/aces/cbrain-client-gem'
 end
 
+
+gem "concurrent-ruby", "= 1.3.4"
